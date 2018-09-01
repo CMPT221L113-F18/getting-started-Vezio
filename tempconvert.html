@@ -1,43 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <title>Lab01 - Heat Index Calculator</title>
+    <title>Sample Web App - Temperature Evaluator</title>
     <meta charset="utf-8"/>
   </head>
   <body>
-    <!-- Description of the Web Application -->
-    <h1>Heat Index Calculator</h1>
-    <p>This is a web application that allows the user to enter a temperature
-       in Fahrenheit and a relative humidity as a percentage between 0 and 100.
-       The web application will then compute the index according to a formula.</p>
+    <h1>Temperature Evaluator</h1>
+    <p>This simple Web application allows you to enter the current temperature, in degrees Fahrenheit, and will then assesses whether it is hot, cold, or some other appropriate adjective.</p>
     <form onsubmit="return false;">
-    <!--Accept user input via form. Then pass input to JS for computation.-->
       <label>
-        Temperature (F&deg;)
-        <input type="number" id="tempInput" placeholder="Temperature"/>
+        Temp (F&deg;)
+        <input type="number" id="tempInput" value="0" />
       </label>
-
-      <br/>
-
-      <label>
-        Relative Humidity (0%-100%)
-        <input type="number" id="humidityInput" placeholder="Relative Humidity"/>
-      </label>
-
-      <br/>
-      <!--Pass user input to JS for computation-->
-      <button onclick="computeHeatIndex();">Compute the Heat Index</button>
-      <!--Display user readable results from JS computation.-->
+      <button onclick="assessTemperature();">Evaluate</button>
       <output id="result"></output>
     </form>
     <script>
-      function computeHeatIndex() {
-        var temperatureElem = document.querySelector('#tempInput');
-        var humidityElem = document.querySelector('#humidityInput');
+      function assessTemperature() {
+        var inputElem = document.querySelector('#tempInput');
         var outputElem = document.querySelector('#result');
-        var temp = temperatureElem.value;
-        var relHum = humidityElem.value;
-
+        var temp = inputElem.value;
+        var feel;
         if (temp > 90)
           feel = 'hot';
         else if (temp > 70)
@@ -48,7 +31,6 @@
           feel = 'cool';
         else
           feel = 'cold';
-
         outputElem.innerHTML = 'It is ' + feel + ' out there today.'
       }
     </script>
