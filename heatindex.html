@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+Class    : Software Development II
+Professor: Matthew Johnson 
+Lab01    : Heat Index Calculator
+Author   : Tyler Rimaldi
+
 <html lang="en">
   <head>
     <title>Lab01 - Heat Index Calculator</title>
@@ -8,7 +14,7 @@
     <!-- Description of the Web Application -->
     <h1>Heat Index Calculator</h1>
     <p>This is a web application that allows the user to enter a temperature
-       in Fahrenheit and a relative humidity as a percentage between 0 and 100.
+       in Fahrenheit and a relative humidity as a percentage between 0 and 100%.
        The web application will then compute the index according to a formula.</p>
     <form onsubmit="return false;">
     <!--Accept user input via form. Then pass input to JS for computation.-->
@@ -40,9 +46,9 @@
         var relHumPercent = humidityElem.value;
         var relHumDec = relHum1/100;
 
-//      Check if user percentage is between 0 and 100 inclusively, if so
-//      compute the heat index, else give the user some feedback to correct
-//      the input values
+        //Check if user percentage is between 0 and 100 inclusively, if so
+        //compute the heat index, else give the user some feedback to correct
+        //the input values
         if ((relHumPercent >= 0) && (relHumPercent <= 100)) {
             var index = -42.379 + 2.04901523 * temp + 10.14333127 * relHumDec -
                         0.22475541 * temp * relHumDec - 0.00683783 *
