@@ -17,66 +17,82 @@ Author    : Tyler Rimaldi
     <meta charset="utf-8"/>
   </head>
   <body>
-    <!-- Description of the Web Application -->
     <h1>Heat Index Calculator</h1>
     <h2>About:</h2>
     <p>This is a web application that allows the user to enter a temperature
-       in Fahrenheit and a relative humidity as a percentage between 0 and 100%.
-       The web application will then compute the index according to the
-       Heat Index Formula.</p>
+       in Fahrenheit and a relative humidity as a percentage between 0% and 100%
+       inclusively. The web application will then compute and display the index
+       according to the Heat Index Formula.</p>
     <h3>Calculate:</h3>
     <form onsubmit="return false;">
-      <!--Accept user input via form. Then pass input to JS for computation.-->
+      <!--Grab Temperature-->
       <label>
         Temperature (F&deg;)
-        <input type="number" id="tempInput" placeholder="Temperature"/>
-      </label>
+        <input type="number" id="tempInput" placeholder="Temperature" required/>
+      </label><br />
 
-      <br/>
-
+      <!--Grab Relative Humidity-->
       <label>
         Relative Humidity (0-100%)
-        <input type="number" id="humidityInput" placeholder="Relative Humidity"/>
-      </label>
-
-      <br/>
+        <input type="number" id="humidityInput" placeholder="Relative Humidity" required/>
+      </label><br />
 
       <!--Pass user input to JS for computation-->
-      <button onclick="computeHeatIndex();">Compute the Heat Index</button>
+      <button onclick="computeHeatIndex();">Compute the Heat Index</button><br />
 
-      <br/>
-      
-      <!--Display user readable results from JS computation.-->
-      <output id="result"></output>
+      <!--Container for Heat Index display box-->
+      <div>
+          <h4>Heat Index:</h4>
+          <!--Display the results from JS computation.-->
+          <output id="result"></output>
+      </div>
     </form>
     <script>
+    /*Caclulates Heat Index according to the Temperature and Relative Humidity
+      the user has provided. Then passes the calculation to the html so
+      the result can be displayed. */
       function computeHeatIndex() {
+      //Storing user inputs
         var temperatureElem = document.querySelector('#tempInput');
         var humidityElem = document.querySelector('#humidityInput');
         var outputElem = document.querySelector('#result');
 
+      //Storing the user input values
         var temp = temperatureElem.value;
         var relHumPercent = humidityElem.value;
+
+      //Converting Relative Humidity from % to decimal to aid in calculations
         var relHumDec = relHumPercent/100;
 
-        //Check if user percentage is between 0 and 100 inclusively, if so
-        //compute the heat index, else give the user some feedback to correct
-        //the input values
-        if ((relHumPercent >= 0) && (relHumPercent <= 100)) {
-            var index = -42.379 + 2.04901523 * temp + 10.14333127 * relHumDec -
-                        0.22475541 * temp * relHumDec - 0.00683783 *
-                        Math.pow(temp, 2) - 0.05481717 * Math.pow(relHumDec, 2)
-                        + 0.00122874 * Math.pow(temp, 2) * relHumDec + 0.00085282
-                        * temp * Math.pow(relHumDec, 2) - 0.00000199 *
-                        Math.pow(temp,2) * Math.pow(relHumDec, 2);
-
-            outputElem.innerHTML = 'The heat index for a temperature of '
-                                   + temp + ' and relative humidity of ' + relHumPercent
-                                   + '% is ' + index
+      /*Check if anything has been entered in the text boxes, if not give some
+        feedback to the user.*/
+        if ((document.getElementById("tempInput").value.length == 0) ||
+           (document.getElementById("humidityInput").value.length == 0)){
+             outputElem.innerHTML = 'You are missing the Temperature or the Relative Humidity.'
         } //if
-        else{
-          outputElem.innerHTML = 'Please enter a valid Relative Humidity'
-        } //else
+
+        /*Check if rel hum percentage is between 0 and 100 inclusively, if so
+          compute the heat index, else give the user some feedback to correct
+          the input values. */
+        else if ((relHumPercent >= 0) && (relHumPercent <= 100)) {
+               //Formula provided by Professor Johnson in lab proceedure
+                 var index = -42.379 + 2.04901523 * temp + 10.14333127 * relHumDec -
+                             0.22475541 * temp * relHumDec - 0.00683783 *
+                             Math.pow(temp, 2) - 0.05481717 * Math.pow(relHumDec, 2)
+                             + 0.00122874 * Math.pow(temp, 2) * relHumDec + 0.00085282
+                             * temp * Math.pow(relHumDec, 2) - 0.00000199 *
+                             Math.pow(temp,2) * Math.pow(relHumDec, 2);
+
+                 outputElem.innerHTML = 'The heat index for a temperature of '
+                                       + temp + ' and relative humidity of ' + relHumPercent
+                                       + '% is ' + index
+                                       // Math.round(100*index)/100; if needs to be rounded
+          } //if
+          else{
+              outputElem.innerHTML = 'Please check your Relative Humidity. '
+                                     + 'The Relative Humidity must be between 0-100% inclusively. '
+                                     + 'You entered ' + relHumPercent + '%.'
+          } //else
       } //computeheatIndex
     </script>
   </body>
