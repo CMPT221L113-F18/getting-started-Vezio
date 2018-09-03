@@ -52,6 +52,7 @@ Author    : Tyler Rimaldi
       the user has provided. Then passes the calculation to the html so
       the result can be displayed. */
       function computeHeatIndex() {
+
       //Storing user inputs
         var temperatureElem = document.querySelector('#tempInput');
         var humidityElem = document.querySelector('#humidityInput');
@@ -67,13 +68,13 @@ Author    : Tyler Rimaldi
       /*Check if anything has been entered in the text boxes, if not give some
         feedback to the user.*/
         if ((document.getElementById("tempInput").value.length == 0) ||
-           (document.getElementById("humidityInput").value.length == 0)){
-             outputElem.innerHTML = 'You are missing the Temperature or the Relative Humidity.'
+           (document.getElementById("humidityInput").value.length == 0)) {
+            outputElem.innerHTML = 'You are missing the Temperature or the Relative Humidity.'
         } //if
 
-        /*Check if rel hum percentage is between 0 and 100 inclusively, if so
-          compute the heat index, else give the user some feedback to correct
-          the input values. */
+      /*Check if rel hum percentage is between 0 and 100 inclusively, if so
+        compute the heat index, else give the user some feedback to correct
+        the input values. */
         else if ((relHumPercent >= 0) && (relHumPercent <= 100)) {
                //Formula provided by Professor Johnson in lab proceedure
                  var index = -42.379 + 2.04901523 * temp + 10.14333127 * relHumDec -
